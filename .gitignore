@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# DataSets - files to work with.
+.GBPUSD1d.txt
+.GBPUSD1m.txt
+.USDJPY5.csv
