@@ -6,18 +6,70 @@ import numpy as np
 from functools import reduce
 import time
 from numpy import genfromtxt
+from pathlib2 import Path
 
 totalStart = time.time()
-date2,bid2,ask2 = np.loadtxt('./USDJPY5.csv', 
-                             delimiter=',', 
-                             max_rows=500,
-                             converters={0: lambda x: mdates.datestr2num(x.decode('utf8'))})
-print(date2)
-date,bid,ask = np.loadtxt('./GBPUSD1d.txt', unpack=True,
+
+def removeFirstComma(pathToFile):
+    linesResult = []
+    # Opening the file using the Path function
+    file = open(pathToFile, 'r')
+    
+  
+    # Reading and storing the content of the file in
+    # a data variable
+    lines = file.readlines()
+    lineLen = lines[0]
+# Replacing the text using the replace function
+    if len(lineLen) >= 56:
+        
+        for line in lines:
+            print(len(lineLen))
+            line = line.replace(",", "", 1)
+            print(line)
+            linesResult.append(line)
+    
+    # Writing the replaced data
+    # in the text file
+        file = open(pathToFile, 'w')
+        file.writelines(linesResult)
+        file.close()
+        print('Done !')
+    return True
+
+def replaceText(search_text, replace_text, pathToFile):
+    # Opening the file using the Path function
+    file = Path(pathToFile)
+  
+    # Reading and storing the content of the file in
+    # a data variable
+    data = file.read_text()
+    
+    # Replacing the text using the replace function
+   
+    data = data.replace(search_text, replace_text)
+  
+    # Writing the replaced data
+    # in the text file
+    file.write_text(data)
+    print('Done !')
+    return True
+print('Removing  colons')
+replaceText(':', '00', './USDJPY5.csv')
+print('Removing dots')
+replaceText('.', '', './USDJPY5.csv')
+print('Removing first comma')
+removeFirstComma('./USDJPY5.csv')
+
+date,bid,high,low,ask,volume = np.loadtxt('./USDJPY5.csv', unpack=True,
                             delimiter=',',
                             converters={0: lambda x: mdates.datestr2num(x.decode('utf8'))})
 
-print(my_data)
+
+
+print(date)
+
+
 
 def percentChange(startPoint, currentPoint):
     try:
@@ -286,7 +338,7 @@ def graphRawFX():
 dataLenght = int(bid.shape[0])
 print ('Data lenght is ', dataLenght, 'unit long.')
 
-toWhat = 2030
+toWhat = 4030
 allData = ((bid+ask)/2)
 accuracyAr = []
 samps = 0
@@ -300,6 +352,7 @@ while toWhat < dataLenght:
     patternStorage()
     currentPattern()
     patternRecognition()
+
 
     totalTime = time.time() - totalStart
     print('Compute Time :', totalTime, 'sec.')

@@ -366,3 +366,6 @@ FodyWeavers.xsd
 .GBPUSD1d.txt
 .GBPUSD1m.txt
 .USDJPY5.csv
+/GBPUSD1d.txt
+/GBPUSD1m.txt
+/USDJPY5.csv
