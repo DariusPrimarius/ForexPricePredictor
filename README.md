@@ -4,3 +4,6 @@ Its cuting sample data downloaded from yahoo finance for periods lenght of 30 va
 If the similiarity is over given point its appending plot with this sample. 
 Basing on similiar samples and their future direction is trying to predict current future direction.
 
+## TODO:
+  It could use pandas or numpy for better array management and better compute time.
+  
